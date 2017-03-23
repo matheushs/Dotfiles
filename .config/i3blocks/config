@@ -1,0 +1,86 @@
+command=$HOME/.config/i3blocks/$BLOCK_NAME
+separator_block_width=8
+markup=none
+separator=false
+border_top=0
+border_left=0
+border_right=0
+border_bottom=5
+# border=#FFFFFF
+# border=#969896
+
+[window-title]
+command=xtitle -s
+border=#F0C87F
+interval=persist
+label=
+separator_block_width=45
+
+[current_track]
+# command=/home/yitzy/.scripts/current_track
+label=
+interval=1
+#border=#2ebd59
+border=#2ebd59
+
+[volume]
+label=♪
+instance=Master
+#instance=PCM
+interval=1
+signal=10
+command=$HOME/.config/i3blocks/volume 5 default
+border=#EDE615
+
+[disk]
+label= HOME
+command=$HOME/.config/i3blocks/disk
+interval=60
+border=#E66F25
+
+[wireless]
+label=
+command=[[ -z "$(iwgetid -r)" ]] || echo "$(iwgetid -r) "
+interval=2
+border=#981A1A
+
+[brightness]
+label=
+command=printf "%.0f " $(xbacklight -get)
+interval=10
+signal=2
+border=#d79921
+
+[Nvidia]
+label= Temp
+command=nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader
+interval=10
+border=#76b900
+
+# Battery indicator
+[battery]
+instance=0
+interval=5
+border=#3AB2FC
+separator=false
+separator_block_width=0
+
+[ac]
+interval=5
+separator=false
+#border=#87CEFA
+border=#3AB2FC
+
+#[battery]
+#instance=1
+#interval=5
+##border=#2B85BD
+#border=#3AB2FC
+#separator=false
+
+# Date Time
+[time]
+command=date '+%Y-%m-%d %H:%M'
+interval=60
+label=
+border=#D281DB

@@ -1,0 +1,254 @@
+# vim:filetype=i3
+set $mod Mod4
+
+# color variables
+set $COLOR_BLACK #263238
+set $COLOR_WHITE #FFFFFF
+set $COLOR_PINK #FF4081
+set $COLOR_BLUE #00BCD4
+set $COLOR_GREEN #8BC34A
+
+# set CapsLock as escape 
+exec setxkbmap -option caps:escape
+
+#Font-Awesome icons
+set $ws1  "1: "
+set $ws2  "2: "
+set $ws3  "3: "
+set $ws4 "4: "
+set $ws5 "5: "
+set $ws6 "6: "
+set $ws7 "7: "
+set $ws8 "8: "
+set $ws9 "9: "
+set $ws10 "10: "
+
+workspace_auto_back_and_forth yes
+focus_on_window_activation urgent
+hide_edge_borders both
+
+font pango:Hack, FontAwesome 12
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# mouse settings
+exec_always xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scrolling Enabled" 1
+
+# start a terminal
+bindsym $mod+Return exec terminator
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# start dmenu (a program launcher)
+bindsym $mod+d exec dmenu_run
+
+bindsym $mod+x exec nautilus
+
+# change focus
+#bindsym $mod+j focus left
+#bindsym $mod+k focus down
+#bindsym $mod+l focus up
+#bindsym $mod+semicolon focus right
+
+# disable mouse focus
+focus_follows_mouse no
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# alternatively, you can use the cursor keys:
+#bindsym $mod+Shift+Left move left
+#bindsym $mod+Shift+Down move down
+#bindsym $mod+Shift+Up move up
+#bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus 
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+#set modifier and l button as locking the screensaver 
+bindsym $mod+l exec xscreensaver-command --lock 
+
+#set $Locker ~/.config/i3/i3lock-extra.sh && sleep 1
+#bindsym $mod+shift+x exec $Locker
+
+set $mode_system System (e) logout, (r) reboot, (s) shutdown, (h) suspend
+mode "$mode_system" {
+    #bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym r exec reboot
+    bindsym s exec shutdown -P now
+    bindsym h exec systemctl suspend
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+e mode "$mode_system"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+
+# Window colors                border           background        text            indicator
+client.focused                 $COLOR_BLUE      $COLOR_BLUE       $COLOR_BLACK    $COLOR_BLACK
+client.unfocused               $COLOR_BLACK     $COLOR_BLACK      $COLOR_BLUE     $COLOR_BLUE
+client.focused_inactive        $COLOR_BLACK     $COLOR_BLACK      $COLOR_BLUE     $COLOR_BLUE
+client.urgent                  $COLOR_PINK      $COLOR_PINK       $COLOR_BLACK    $COLOR_BLACK 
+
+bindsym $mod+r mode "resize"
+
+for_window [class="^.*"] border pixel 0
+
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="Preferences"] floating enable
+for_window [title="^vvp$"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+
+workspace_layout tabbed
+
+assign [class="chromium"]   $ws1
+assign [class="Terminator"] $ws2
+assign [class="Nautilus"]   $ws3
+assign [class="telegram"]   $ws4
+assign [title="^spotify$"]    $ws7
+assign [class="^spotify$"]    $ws7
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+set $transparent #00000000
+bar {
+        status_command i3blocks
+        i3bar_command i3bar -t
+        position top
+        font pango:Hack, FontAwesome 14
+        strip_workspace_numbers yes
+        tray_padding 0
+        height 33
+
+        colors
+        {
+                #statusline  $COLOR_BLUE
+                background  $transparent
+                statusline #FFF4D1
+
+                # Colors            border           backgr.          text
+                focused_workspace   $transparent     $transparent     $COLOR_PINK
+                active_workspace    $transparent     $transparent     $COLOR_BLACK     $COLOR_PINK
+                inactive_workspace  $transparent     $transparent     $COLOR_WHITE
+                urgent_workspace    $COLOR_PINK      $COLOR_PINK      $COLOR_WHITE
+        }
+}
+
+# volume controls
+bindsym XF86AudioRaiseVolume exec amixer -q sset Master 5%+ #increase sound volume
+bindsym XF86AudioLowerVolume exec amixer -q sset Master 5%- #decrease sound volume
+bindsym XF86AudioMute exec amixer -q sset Master toggle  # mute sound
+ 
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+bindsym Mod1+Down exec playerctl play-pause
+bindsym Mod1+Right exec playerctl next
+bindsym Mod1+Left exec playerctl previous
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 
+
+# AUTOSTART
+exec_always --no-startup-id feh --bg-max --randomize $HOME/.wallpaper
+exec --no-startup-id nm-applet
+exec xscreensaver -no-splash
+#exec --no-startup-id compton -f --sw-opti
+exec --no-startup-id compton --opengl --sw-opti -f -D35 -I0.2 -O0.2
+
+# i3-gaps
+gaps inner 10
+gaps outer 0
+smart_borders yes
+#smart_gaps yes
